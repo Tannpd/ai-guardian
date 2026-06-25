@@ -13,7 +13,8 @@ import {
   AlertTriangle,
   Cpu,
   FileText,
-  HelpCircle
+  HelpCircle,
+  ExternalLink
 } from 'lucide-react';
 
 const PRESET_COUNSEL = "0x8888888888888888888888888888888888888888";
@@ -99,7 +100,8 @@ function App() {
   }, [shellLogs]);
 
   const addShellLog = (msg) => {
-    setShellLogs(prev => [...prev, `> ${msg}`]);
+    const time = new Date().toLocaleTimeString();
+    setShellLogs(prev => [...prev, `[${time}] > ${msg}`]);
   };
 
   const handleCommandSubmit = (e) => {
@@ -175,11 +177,11 @@ function App() {
 
   const handleCreateGuild = async (e) => {
     e.preventDefault();
-    if (!datasetName.trim()) {
+    if (!datasetName || !datasetName.trim()) {
       addShellLog("ERROR: Dataset name cannot be empty.");
       return;
     }
-    if (!counsel.trim()) {
+    if (!counsel || !counsel.trim()) {
       addShellLog("ERROR: Counsel address cannot be empty.");
       return;
     }
@@ -199,7 +201,7 @@ function App() {
   };
 
   const handleScan = async (guildId, url) => {
-    if (!url.trim()) {
+    if (!url || !url.trim()) {
       addShellLog("ERROR: Evidence link cannot be empty.");
       return;
     }
@@ -280,7 +282,7 @@ function App() {
         {/* Left Column: Interactive Command Terminal Pane */}
         <section className="terminal-console-pane">
           
-          {/* Ascii status header */}
+          {/* Ascii art display */}
           <pre className="hacker-ascii-art">
             {isBreached ? ASCII_LOGO_BREACH : ASCII_LOGO_SECURE}
           </pre>
@@ -379,6 +381,24 @@ function App() {
             </div>
             
             <div className="panel-card-body">
+              
+              {/* Circular Cyber Radar Sweep Visualizer */}
+              <div className="radar-box-wrapper">
+                <div className="radar-title-mono">
+                  {isBreached ? "WARNING: AI TRAINING INFRINGEMENT SENSORS ACTIVE" : "COPYRIGHT SHIELD RADAR // SCANNING DATASETS"}
+                </div>
+                <div className="radar-visualizer">
+                  <div className="radar-sweep"></div>
+                  <div className="radar-concentric-1"></div>
+                  <div className="radar-concentric-2"></div>
+                  <div className="radar-line-h"></div>
+                  <div className="radar-line-v"></div>
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: isBreached ? 'var(--color-red)' : 'var(--color-text-dim)', marginTop: '10px', textShadow: isBreached ? '0 0 3px var(--color-red)' : 'none' }}>
+                  {isBreached ? "STATUS: INTELLECTUAL PROPERTY BREACH CONFIRMED" : "STATUS: SYSTEM SURVEILLANCE STANDBY"}
+                </div>
+              </div>
+
               <div className="shield-grid-container">
                 {guilds.length === 0 ? (
                   <div className="empty-state">
