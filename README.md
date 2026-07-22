@@ -37,7 +37,7 @@ Copyright audit checks require analyzing unstructured legal and journalism artic
 1. Open the [frontend/.env](file:///D:/Gen/AIGuardian/frontend/.env) file.
 2. Replace the placeholder address with your deployed contract address:
    ```env
-   VITE_CONTRACT_ADDRESS=0xYourDeployedContractAddress
+   VITE_CONTRACT_ADDRESS=0x432C310FE6e06AF33F524573dEb393fd33702699
    ```
 
 ### 3. Run the Command Center
