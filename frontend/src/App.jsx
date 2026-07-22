@@ -76,7 +76,7 @@ function App() {
   } = useAIGuardian();
 
   // Form States
-  const [datasetName, setDatasetName] = useState('');
+  const [datasetName, setDatasetName] = useState('CustomCreativePortfolios');
   const [counsel, setCounsel] = useState(PRESET_COUNSEL);
   const [funding, setFunding] = useState('15');
   const [evidenceUrl, setEvidenceUrl] = useState('');
@@ -195,7 +195,7 @@ function App() {
       addShellLog(`Registering guild shield for dataset: '${datasetName}'...`);
       await createGuild(counsel, datasetName, funding);
       addShellLog("Defense guild successfully deployed onto GenLayer chain.");
-      setDatasetName('');
+      setDatasetName('CustomCreativePortfolios');
     } catch (err) {
       addShellLog(`DEPLOY ERROR: ${err.message}`);
     }
