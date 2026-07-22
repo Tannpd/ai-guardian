@@ -218,6 +218,24 @@ function App() {
   const applyPreset = (preset) => {
     setDatasetName(preset.dataset);
     setEvidenceUrl(preset.url);
+
+    // Map preset outcome to mock URL
+    let targetMockUrl = preset.url;
+    if (preset.name.includes("BREACH")) {
+      targetMockUrl = 'https://ai-guardian-nine.vercel.app/mock_infringement_breached.txt';
+    } else if (preset.name.includes("SECURE")) {
+      targetMockUrl = 'https://ai-guardian-nine.vercel.app/mock_infringement_clean.txt';
+    }
+
+    // Auto update URL for all active guilds
+    setGuildUrls(prev => {
+      const nextMap = { ...prev };
+      guilds.forEach(g => {
+        nextMap[g.id] = targetMockUrl;
+      });
+      return nextMap;
+    });
+
     addShellLog(`Loaded Preset: ${preset.name}`);
     addShellLog(`Scrape Sim: ${preset.mockDescription}`);
   };
