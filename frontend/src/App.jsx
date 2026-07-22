@@ -81,6 +81,7 @@ function App() {
   const [funding, setFunding] = useState('15');
   const [evidenceUrl, setEvidenceUrl] = useState('');
   const [selectedGuildId, setSelectedGuildId] = useState('');
+  const [guildUrls, setGuildUrls] = useState({});
 
   // Interactive Command Terminal States
   const [commandInput, setCommandInput] = useState('');
@@ -428,25 +429,87 @@ function App() {
                       {g.status === 'ACTIVE' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '15px' }}>
                           <label className="cyber-input-label">EVIDENCE LOG OR COURT FILING URL</label>
+
+                          {/* QUICK TEST LINK BUTTONS */}
+                          <div style={{ display: 'flex', gap: '8px', margin: '4px 0' }}>
+                            <button
+                              type="button"
+                              style={{
+                                background: 'rgba(239, 68, 68, 0.15)',
+                                border: '1px solid rgba(239, 68, 68, 0.4)',
+                                color: 'var(--color-red)',
+                                fontSize: '11px',
+                                padding: '4px 8px',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontFamily: 'var(--font-mono)'
+                              }}
+                              onClick={() => {
+                                setGuildUrls(prev => ({
+                                  ...prev,
+                                  [g.id]: 'https://ai-guardian-nine.vercel.app/mock_infringement_breached.txt'
+                                }));
+                              }}
+                            >
+                              + Fill Breached Evidence Link
+                            </button>
+
+                            <button
+                              type="button"
+                              style={{
+                                background: 'rgba(34, 197, 94, 0.15)',
+                                border: '1px solid rgba(34, 197, 94, 0.4)',
+                                color: 'var(--color-green)',
+                                fontSize: '11px',
+                                padding: '4px 8px',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontFamily: 'var(--font-mono)'
+                              }}
+                              onClick={() => {
+                                setGuildUrls(prev => ({
+                                  ...prev,
+                                  [g.id]: 'https://ai-guardian-nine.vercel.app/mock_infringement_clean.txt'
+                                }));
+                              }}
+                            >
+                              + Fill Clean Evidence Link
+                            </button>
+                          </div>
+
                           <div style={{ display: 'flex', gap: '10px' }}>
                             <input
                               type="text"
                               className="cyber-field"
                               style={{ flex: 1 }}
-                              placeholder="https://techcrunch.com/leak-report..."
-                              value={selectedGuildId === g.id ? evidenceUrl : ''}
+                              placeholder="https://ai-guardian-nine.vercel.app/mock_infringement_breached.txt"
+                              value={guildUrls[g.id] !== undefined ? guildUrls[g.id] : 'https://ai-guardian-nine.vercel.app/mock_infringement_breached.txt'}
                               onChange={(e) => {
-                                setSelectedGuildId(g.id);
-                                setEvidenceUrl(e.target.value);
+                                setGuildUrls(prev => ({
+                                  ...prev,
+                                  [g.id]: e.target.value
+                                }));
                               }}
                             />
                             <button
                               type="button"
                               className="btn-cyber"
-                              onClick={() => handleScan(g.id, evidenceUrl)}
+                              onClick={() => {
+                                const urlToScan = guildUrls[g.id] !== undefined
+                                  ? guildUrls[g.id]
+                                  : 'https://ai-guardian-nine.vercel.app/mock_infringement_breached.txt';
+                                handleScan(g.id, urlToScan);
+                              }}
                               disabled={loading || !address}
                             >
-                              AUDIT EVIDENCE
+                              {loading ? (
+                                <>
+                                  <RefreshCw style={{ width: '12px', height: '12px' }} className="animate-spin" />
+                                  <span>AUDITING...</span>
+                                </>
+                              ) : (
+                                <span>AUDIT EVIDENCE</span>
+                              )}
                             </button>
                           </div>
                         </div>

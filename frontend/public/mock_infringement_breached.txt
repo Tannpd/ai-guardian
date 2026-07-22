@@ -1,0 +1,6 @@
+LEAKED MANIFEST AUDIT & COURT EVIDENCE
+-----------------------------------------
+Dataset: ConceptArt-Dataset-v1 / LAION-5B-Subset
+Status: Unauthorized Commercial Ingestion Verified
+
+Forensic analysis of GenAI Training Dump #8492 reveals that tech corporation AI-Corp systematically scraped and indexed all artist portfolios under 'ConceptArt-Dataset-v1' without authorization or payment. Over 450,000 images were ingested into the training pipeline for Commercial-GenAI-v3. Copyright infringement detected.
