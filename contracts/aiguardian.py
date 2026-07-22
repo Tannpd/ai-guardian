@@ -62,15 +62,6 @@ class Contract(gl.Contract):
     # CONSTRUCTOR
     def __init__(self) -> None:
         self.guilds_count = bigint(0)
-        self.guild_creator = TreeMap()
-        self.guild_counsel = TreeMap()
-        self.guild_amount = TreeMap()
-        self.guild_dataset_name = TreeMap()
-        self.guild_evidence_url = TreeMap()
-        self.guild_status = TreeMap()
-        self.guild_infringement_detected = TreeMap()
-        self.guild_severity_score = TreeMap()
-        self.guild_legal_analysis = TreeMap()
 
     # PUBLIC WRITE: CREATE GUILD & LOCK DEFENSE FUND
     @gl.public.write.payable

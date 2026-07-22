@@ -11,7 +11,12 @@ from unittest.mock import MagicMock
 
 # --- Mocking structure to simulate the GenLayer SDK runtime ------------------
 class MockContractBase:
-    pass
+    def __new__(cls, *args, **kwargs):
+        instance = super().__new__(cls)
+        for name, type_hint in getattr(cls, '__annotations__', {}).items():
+            if 'dict' in str(type_hint) or 'TreeMap' in str(type_hint):
+                setattr(instance, name, dict())
+        return instance
 
 class MockMessage:
     def __init__(self, sender="0x1111111111111111111111111111111111111111", value=0):
